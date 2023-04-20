@@ -38,6 +38,7 @@ def find_possible_lithium_sites(target_position):
 
     # 如果有且只有两个氧原子，并且这两个氧原子的距离在1.5-3A之间，返回True
     if o_count == 2 and distance_count == 2:
+        print(target_position)
         return True
     else:
         return False
@@ -45,7 +46,7 @@ def find_possible_lithium_sites(target_position):
 
 
 box_size = read_cif("example.cif")
-density = 0.1
+density = 10
 
 # 生成均匀分布的点
 target_positions = generate_uniform_points(box_size, density)
@@ -53,19 +54,29 @@ target_positions = generate_uniform_points(box_size, density)
 
 #遍历目标位置列表，依次调用find_possible_lithium_sites函数，并打印输出结果
 
-for pos in target_positions:
-    if find_possible_lithium_sites(pos):
-        #print("yes")
-        print(pos)
-    #else:
-        #print("no")
+#for pos in target_positions:
+#    if find_possible_lithium_sites(pos):
+#        #print("yes")
+#        print(pos)
+#    #else:
+#        #print("no")
 
 
-# import multiprocessing as mul
-# CORES=4
-
-# pool = mul.Pool(CORES)    
-# arg=target_positions                ####并行输入的列表
-# rel  = pool.map(find_possible_lithium_sites,arg)####并行输入的函数
 
 
+from tqdm import tqdm
+import multiprocessing as mul
+import sys
+
+CORES = 4
+pool = mul.Pool(CORES)    
+arg = target_positions
+
+# 使用tqdm创建进度条，并设置更新速率为每秒一次
+with tqdm(total=len(arg), miniters=1) as pbar:
+    # 在pool.map()函数中传递update函数作为回调函数
+    def update(*a):
+        pbar.update()
+        sys.stdout.flush()   # 强制刷新终端
+
+    rel = pool.map_async(find_possible_lithium_sites,arg,callback=update).get()
