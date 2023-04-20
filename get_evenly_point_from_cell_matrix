@@ -1,3 +1,6 @@
+##给定盒子边界
+##给定撒点密度
+
 import numpy as np
 
 def uniform_sampling(box_size, density):
