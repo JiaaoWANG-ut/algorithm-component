@@ -10,7 +10,7 @@ def plot_lattice(A, rand_coords):
     edges = [(0, 1), (1, 2), (2, 3), (3, 0), (4, 5), (5, 6), (6, 7), (7, 4), (0, 4), (1, 5), (2, 6), (3, 7)]
 
     # Generate 10 random points inside the unit cell
-    num_points = 10
+    #num_points = 10
     #rand_coords = np.random.rand(num_points, 3)
 
     # Create the figure
@@ -25,7 +25,7 @@ def plot_lattice(A, rand_coords):
 
     # Add the random points inside the unit cell
     for point in rand_coords:
-        transformed_point = A @ point
+        transformed_point = point
         fig.add_trace(go.Scatter3d(x=[transformed_point[0]], y=[transformed_point[1]], z=[transformed_point[2]], 
                                    mode='markers', marker=dict(size=6, color='red')))
 
@@ -33,6 +33,17 @@ def plot_lattice(A, rand_coords):
     offline.plot(fig, filename='lattice.html', auto_open=True)
 
 
+# import ase.io
+# import numpy as np
+
+# # Read the CIF file
+# atoms = ase.io.read('example.cif')
+
+# # Get the lattice vectors as a numpy array
+# lattice = np.array(atoms.get_cell())
+
 #A = np.array([[1, 3, 0], [0, 1, 3], [0, 0, 1]])
 #rand_coords = np.random.rand(10, 3)*2
 #plot_lattice(A, rand_coords)
+
+
