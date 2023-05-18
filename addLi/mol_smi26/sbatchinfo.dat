@@ -1,0 +1,16 @@
+
+-----------------------------------------------------------------
+           Welcome to the Frontera Supercomputer                 
+-----------------------------------------------------------------
+
+No reservation for this job
+--> Verifying valid submit host (login2)...OK
+--> Verifying valid jobname...OK
+--> Verifying valid ssh keys...OK
+--> Verifying access to desired queue (small)...OK
+--> Checking available allocation (CHE21006)...OK
+--> Verifying that quota for filesystem /home1/08197/jiaao is at 40.80% allocated...OK
+--> Warning: filesystem /work2/08197/jiaao/frontera is over 90% allocated.
+-->          Please, keep /work2/08197/jiaao/frontera under 90% of quota allocation
+sbatch: error: QOSMaxSubmitJobPerUserLimit
+sbatch: error: Batch job submission failed: Job violates accounting/QOS policy (job submit limit, user's size and/or time limits)
